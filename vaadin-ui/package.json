@@ -1,0 +1,24 @@
+{
+  "name": "tic-tac-toe",
+  "version": "0.0.1",
+  "description": "Tic-tac-toe",
+  "author": "Lviv JavaClub",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lvivJavaClub/grpc-tic-tac-toe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lvivJavaClub/grpc-tic-tac-toe/issues"
+  },
+  "main": "main.js",
+  "scripts": {
+    "prestart": "make",
+    "start": "electron main.js",
+    "test": "mvn test && jasmine-node ."
+  },
+  "devDependencies": {
+    "electron": "2.0.3",
+    "jasmine-node": "^1.15.0"
+  }
+}

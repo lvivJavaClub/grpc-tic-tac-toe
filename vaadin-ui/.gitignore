@@ -1,0 +1,13 @@
+/node_modules/
+/target/
+/logs/
+!.mvn/wrapper/maven-wrapper.jar
+package-lock.json
+
+### IntelliJ IDEA ###
+/.idea
+*.iws
+*.iml
+*.ipr
+
+
