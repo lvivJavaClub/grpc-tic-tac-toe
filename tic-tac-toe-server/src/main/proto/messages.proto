@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package org.javaclub.grpc.tictactoeserver;
+
+service Connection {
+    rpc connect(ConnectionRequest) returns(ConnectionResponse) {}
+}
+
+message ConnectionRequest {
+    string id = 1;
+}
+
+message ConnectionResponse {
+    bool success = 1;
+}

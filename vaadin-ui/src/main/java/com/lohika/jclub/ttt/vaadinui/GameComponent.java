@@ -7,10 +7,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.router.Route;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
@@ -21,7 +18,7 @@ public class GameComponent extends Div {
 
   private Map<Integer, Button> map;
 
-  public GameComponent() {
+  public GameComponent() throws InterruptedException {
     map = IntStream.range(0, 9).boxed()
         .map(this::createButton)
         .collect(toMap(Focusable::getTabIndex, e -> e));
@@ -33,6 +30,16 @@ public class GameComponent extends Div {
           }
         })
         .forEach(this::add);
+
+
+    TicTacToeClient client = new TicTacToeClient("localhost", 50051);
+    try {
+      /* Access a service running on the local machine on port 50051 */
+      String user = UUID.randomUUID().toString();
+      client.connect(user);
+    } finally {
+      client.shutdown();
+    }
   }
 
   private Button createButton(Integer i) {
