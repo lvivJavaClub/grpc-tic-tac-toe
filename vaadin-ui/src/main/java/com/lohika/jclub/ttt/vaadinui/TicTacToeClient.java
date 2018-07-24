@@ -17,7 +17,6 @@ public class TicTacToeClient {
     private final ManagedChannel channel;
     private final ConnectionGrpc.ConnectionBlockingStub blockingStub;
 
-    /** Construct client connecting to HelloWorld server at {@code host:port}. */
     public TicTacToeClient(String host, int port) {
         this(ManagedChannelBuilder.forAddress(host, port)
                 // Channels are secure by default (via SSL/TLS). For the example we disable TLS to avoid
@@ -26,7 +25,6 @@ public class TicTacToeClient {
                 .build());
     }
 
-    /** Construct client for accessing HelloWorld server using the existing channel. */
     TicTacToeClient(ManagedChannel channel) {
         this.channel = channel;
         blockingStub = ConnectionGrpc.newBlockingStub(channel);
@@ -36,9 +34,8 @@ public class TicTacToeClient {
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }
 
-    /** Say hello to server. */
     public void connect(String name) {
-        logger.info("Will try to connect " + name + " ...");
+        logger.info("Connecting " + name + " ...");
         ConnectionRequest request = ConnectionRequest.newBuilder().setId(name).build();
         ConnectionResponse response;
         try {
@@ -48,23 +45,5 @@ public class TicTacToeClient {
             return;
         }
         logger.info("Connected: " + response.getSuccess());
-    }
-
-    /**
-     * Greet server. If provided, the first element of {@code args} is the name to use in the
-     * greeting.
-     */
-    public static void main(String[] args) throws Exception {
-        TicTacToeClient client = new TicTacToeClient("localhost", 50051);
-        try {
-            /* Access a service running on the local machine on port 50051 */
-            String user = "Player1";
-            if (args.length > 0) {
-                user = args[0]; /* Use the arg as the name to connect if provided */
-            }
-            client.connect(user);
-        } finally {
-            client.shutdown();
-        }
     }
 }

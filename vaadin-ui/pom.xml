@@ -112,8 +112,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.javaclub.grpc</groupId>
-      <artifactId>tic-tac-toe-server</artifactId>
+      <groupId>com.lohika.jclub.ttt</groupId>
+      <artifactId>common-grpc</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

@@ -7,6 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <modules>
     <module>vaadin-ui</module>
+    <module>common-grpc</module>
   </modules>
   <packaging>pom</packaging>
 

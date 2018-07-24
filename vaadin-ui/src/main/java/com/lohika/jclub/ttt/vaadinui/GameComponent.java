@@ -31,7 +31,9 @@ public class GameComponent extends Div {
         })
         .forEach(this::add);
 
-
+    /**
+     * Connecting to server via gRPC
+     */
     TicTacToeClient client = new TicTacToeClient("localhost", 50051);
     try {
       /* Access a service running on the local machine on port 50051 */
