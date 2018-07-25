@@ -8,6 +8,7 @@
   <modules>
     <module>vaadin-ui</module>
     <module>common-grpc</module>
+    <module>tic-tac-toe-server</module>
   </modules>
   <packaging>pom</packaging>
 
