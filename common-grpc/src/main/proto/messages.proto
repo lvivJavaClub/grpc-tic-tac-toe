@@ -4,14 +4,36 @@ option java_multiple_files = true;
 
 package org.javaclub.grpc.tictactoeserver;
 
-service Connection {
-    rpc connect(ConnectionRequest) returns(ConnectionResponse) {}
+service Game {
+    rpc connect (ConnectionRequest) returns (stream PlayerResponse) {}
+
+    rpc makeMove (stream MoveRequest) returns (MoveResponse) {}
 }
 
 message ConnectionRequest {
     string id = 1;
 }
 
-message ConnectionResponse {
+message PlayerResponse {
+    Point point = 1;
+    Character char = 2;
+}
+
+message MoveRequest {
+    string id = 1;
+    Point point = 2;
+}
+
+message MoveResponse {
     bool success = 1;
+}
+
+message Point {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+enum Character {
+    X = 0;
+    O = 1;
 }
