@@ -41,24 +41,7 @@ public class TicTacToeClient {
         logger.info("Connecting " + name + " ...");
         ConnectionRequest request = ConnectionRequest.newBuilder().setId(name).build();
         try {
-            stub.connect(request, new StreamObserver<PlayerResponse>() {
-                @Override
-                public void onNext(PlayerResponse playerResponse) {
-                    Point point = playerResponse.getPoint();
-                    Integer p = point.getY() + point.getX() + (2 * point.getX());
-                    String text = playerResponse.getChar().name();
-//                    map.get(p).setText(text);
-                    logger.info("Move: " + text + " to " + p);
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                }
-
-                @Override
-                public void onCompleted() {
-                }
-            });
+            stub.connect(request, streamObserver);
         } catch (StatusRuntimeException e) {
             logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
             return;
@@ -74,11 +57,11 @@ public class TicTacToeClient {
 
             @Override
             public void onError(Throwable throwable) {
+                logger.log(Level.SEVERE, "Error: ", throwable);
             }
 
             @Override
             public void onCompleted() {
-
             }
         };
         StreamObserver<MoveRequest> move = stub.makeMove(observer);

@@ -3,6 +3,7 @@ package org.javaclub.grpc.tictactoeserver;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -95,6 +96,7 @@ public class TicTacToeServer {
 
                 @Override
                 public void onError(Throwable throwable) {
+                    logger.log(Level.SEVERE, "Error: ", throwable);
                 }
 
                 @Override
