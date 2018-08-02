@@ -36,4 +36,5 @@ message Point {
 enum Character {
     X = 0;
     O = 1;
+    EMPTY = 2;
 }

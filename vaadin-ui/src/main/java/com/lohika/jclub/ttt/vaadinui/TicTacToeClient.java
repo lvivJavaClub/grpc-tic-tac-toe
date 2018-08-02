@@ -48,22 +48,7 @@ public class TicTacToeClient {
         }
     }
 
-    public void makeMove(Integer point, String id) {
-        StreamObserver<MoveResponse> observer = new StreamObserver<MoveResponse>() {
-            @Override
-            public void onNext(MoveResponse moveResponse) {
-                logger.info("Status: " + moveResponse.getSuccess());
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                logger.log(Level.SEVERE, "Error: ", throwable);
-            }
-
-            @Override
-            public void onCompleted() {
-            }
-        };
+    public void makeMove(Integer point, String id, StreamObserver<MoveResponse> observer) {
         StreamObserver<MoveRequest> move = stub.makeMove(observer);
         move.onNext(MoveRequest.newBuilder()
                 .setPoint(Point.newBuilder().setX(point / 3).setY(point % 3).build())

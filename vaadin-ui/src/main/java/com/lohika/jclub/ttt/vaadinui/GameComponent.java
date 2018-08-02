@@ -15,6 +15,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.communication.PushMode;
 import io.grpc.stub.StreamObserver;
+import org.javaclub.grpc.tictactoeserver.MoveResponse;
 import org.javaclub.grpc.tictactoeserver.PlayerResponse;
 import org.javaclub.grpc.tictactoeserver.Point;
 
@@ -32,16 +33,16 @@ public class GameComponent extends Div {
 
   public GameComponent() throws InterruptedException {
     map = IntStream.range(0, 9).boxed()
-        .map(this::createButton)
-        .collect(toMap(Focusable::getTabIndex, e -> e));
+            .map(this::createButton)
+            .collect(toMap(Focusable::getTabIndex, e -> e));
 
     map.values().stream()
-        .peek(b -> {
-          if (b.getTabIndex() % 3 == 0) {
-            add(new Hr());
-          }
-        })
-        .forEach(this::add);
+            .peek(b -> {
+              if (b.getTabIndex() % 3 == 0) {
+                add(new Hr());
+              }
+            })
+            .forEach(this::add);
 
     /**
      * Connecting to server via gRPC
@@ -66,6 +67,13 @@ public class GameComponent extends Div {
 
       @Override
       public void onCompleted() {
+        logger.log(Level.INFO, "Game finished!");
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+        map.forEach((k, v) -> setText("", v));
       }
     });
   }
@@ -73,8 +81,23 @@ public class GameComponent extends Div {
   private Button createButton(Integer i) {
     Button button = new Button();
     button.setTabIndex(i);
+    StreamObserver<MoveResponse> observer = new StreamObserver<MoveResponse>() {
+      @Override
+      public void onNext(MoveResponse moveResponse) {
+        logger.info("Status: " + moveResponse.getSuccess());
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+        logger.log(Level.SEVERE, "Error: ", throwable);
+      }
+
+      @Override
+      public void onCompleted() {
+      }
+    };
     button.addClickListener(e -> {
-      client.makeMove(e.getSource().getTabIndex(), user);
+      client.makeMove(e.getSource().getTabIndex(), user, observer);
     });
     return button;
   }
