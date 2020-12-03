@@ -44,4 +44,4 @@ jobs:
           
       - name: Very sercret action
         run: |-
-          echo ${{ secret.MY_SECRET }}
+          echo ${{ secrets.MY_SECRET }}
