@@ -50,7 +50,7 @@ jobs:
         run: |-
           echo ${{ secrets.MY_SECRET }}
           cat $GITHUB_ENV
-          echo "123"
+          echo "123" | base64
           
       - name: Cleap up
         run: |-
