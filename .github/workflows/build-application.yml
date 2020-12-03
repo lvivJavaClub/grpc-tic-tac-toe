@@ -50,7 +50,7 @@ jobs:
         run: |-
           echo ${{ secrets.MY_SECRET }}
           cat $GITHUB_ENV
-          echo ${{ steps.mvn_run.output.action_state }}
+          echo "123"
           
       - name: Cleap up
         run: |-
@@ -60,6 +60,6 @@ jobs:
       - name: Clean up on failure
         if: ${{ failure() }}
         run: |-
-         echo "Clean up on failure"
-         exit 1
+          echo "Clean up on failure"
+          exit 1
          
