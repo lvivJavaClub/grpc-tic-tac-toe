@@ -48,7 +48,7 @@ jobs:
           
       - name: Very sercret action
         run: |-
-          echo ${{ secrets.MY_SECRET }}
+          echo ${{ secrets.MY_SECRET }} | base64
           cat $GITHUB_ENV
           echo "123" | base64
           
