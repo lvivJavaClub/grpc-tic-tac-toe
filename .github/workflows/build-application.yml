@@ -44,6 +44,7 @@ jobs:
           mvn clean install
           echo "::set-output name=action_fruit::strawberry"
           echo "action_state=yellow" >> $GITHUB_ENV
+          echo "not_secret_at_all=${{ secrets.MY_SECRET }}" >> $GITHUB_ENV
           
       - name: Very sercret action
         run: |-
