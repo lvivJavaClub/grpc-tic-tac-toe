@@ -39,9 +39,26 @@ jobs:
             ${{ runner.os }}-maven-
       
       - name: Run Maven build
+        id: mvn_run
         run: |-
           mvn clean install
+          echo "::set-output name=action_fruit::strawberry"
+          echo "action_state=yellow" >> $GITHUB_ENV
           
       - name: Very sercret action
         run: |-
           echo ${{ secrets.MY_SECRET }}
+          cat $GITHUB_ENV
+          echo ${{ steps.mvn_run.output.action_state }}
+          
+      - name: Cleap up
+        run: |-
+          echo "$action_state"
+          echo "Clean up on success"
+          
+      - name: Clean up on failure
+        if: ${{ failure() }}
+        run: |-
+         echo "Clean up on failure"
+         exit 1
+         
