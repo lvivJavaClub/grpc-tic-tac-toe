@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test env
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      DAY_OF_WEEK: Mon
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+      - name: Test env
+        env:
+          DAY_OF_WEEK: Fri
+        run: |
+          echo "${DAY_OF_WEEK}"
+          echo "${{env.DAY_OF_WEEK}}"
+
+         
