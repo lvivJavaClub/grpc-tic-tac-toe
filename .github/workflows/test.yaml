@@ -30,6 +30,6 @@ jobs:
           DAY_OF_WEEK: Fri
         run: |
           echo "${DAY_OF_WEEK}"
-          echo "${env.DAY_OF_WEEK}"
+          echo "${{env.DAY_OF_WEEK}}"
 
          
